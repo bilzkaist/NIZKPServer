@@ -1,2 +1,2 @@
-# NIZKPServer
-Non-Interactive Zero Knowledge Proof Server
+# carbonstream
+Core API for blocksafe platform 

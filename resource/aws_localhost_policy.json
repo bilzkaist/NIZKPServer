@@ -1,0 +1,32 @@
+{
+     "Version": "2012-10-17", 
+     "Statement": [
+         {
+             "Sid":"VisualEditor0",
+             "Effect":"Allow",
+             "Action":"secretsmanager:GetSecretValue",
+             "Resource":"*",
+             "Condition": {
+                 "StringLike":{
+                     "secretsmanager:ResourceTag/deployment": "localhost"
+                 }
+             }
+         },
+         {
+             "Sid": "VisualEditor1",
+             "Effect":"Allow",
+             "Action": [
+                 "iam:ListRoleTags",
+                 "opsworks:DescribeMyUserProfile",
+                 "secretsmanager:ListSecrets",
+                 "iam:ListUserTags"
+             ],
+             "Resource": "*"
+         }
+     ]
+ }
+
+
+
+
+//  neurasynaptics-aws-localhost-policy
