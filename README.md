@@ -1,2 +1,2 @@
-# carbonstream
-Core API for blocksafe platform 
+# NIZKPServer
+Core API for NIZKP Server
