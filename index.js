@@ -18,13 +18,14 @@ _.run = async () => {
     
     try {
         // Load the secret data
-        let secretData = await secrets.load();
+       // let secretData = await secrets.load();
 
         // Start the mongo db server
-        await mongo.start(secretData);
+       // await mongo.start(secretData);
 
         // Start the server
-        await server.start(secretData);
+        console.log('Server started');
+        await server.start("secretData");
 
         // Start the background workers
         // await emailSender.start();

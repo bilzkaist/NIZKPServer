@@ -108,8 +108,8 @@ let _ = class extends base{
     }
 
     async verifyEscada() {
-        Ecdsa.publicKey.fr
-        this.verification =  Ecdsa.verify(this.msg, this.sig, this.publicKey);
+       // Ecdsa.publicKey.fr
+       // this.verification =  Ecdsa.verify(this.msg, this.sig, this.publicKey);
         
     }
     // Set the first name
