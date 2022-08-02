@@ -23,9 +23,21 @@ const format = require('./../lib/format');
 const validate = require('validate.js');
 
 
-// For 
+// EECDSA Dependencies 
 const ellipticcurve = require("starkbank-ecdsa");
 var Ecdsa = ellipticcurve.Ecdsa;
+var PrivateKey = ellipticcurve.PrivateKey;
+// Generate privateKey from PEM string
+//var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n");
+// Generate privateKey from PEM string
+var privateKeyProver = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMHQCAQEEIODvZuS34wFbt0X53+P5EnSj6tMjfVK01dD1dgDH02RzoAcGBSuBBAAK\noUQDQgAE/nvHu/SQQaos9TUljQsUuKI15Zr5SabPrbwtbfT/408rkVVzq8vAisbB\nRmpeRREXj5aog/Mq8RrdYy75W9q/Ig==\n-----END EC PRIVATE KEY-----\n");
+// Generate privateKey from PEM string
+var privateKey = PrivateKey.fromPem("-----BEGIN EC PARAMETERS-----\nBgUrgQQACg==\n-----END EC PARAMETERS-----\n-----BEGIN EC PRIVATE KEY-----\nMF8CAQEEC2Qt/nu////9ffdJoAcGBSuBBAAKoUQDQgAEp9nrFCWyo0tsn7NfxY7/\nMsIhhgTBn6WdAh80TiGFsp9RDGWgr7cu7L6KYcOOaCGqA6Dlb1jakAGU3QA26tyd\nxw==\n-----END EC PRIVATE KEY-----\n");
+
+
+// For  elliptic curve usages
+var Signature = ellipticcurve.Signature;
+var PublicKey = ellipticcurve.PublicKey;
 // Other Deependencies
 const moment = require('moment');
 
@@ -98,6 +110,7 @@ let _ = class extends base{
             this.publicKey = null;
             this.msg = null;
             this.sig = null;
+            this.verification = false;
         }
     }
 
@@ -108,8 +121,21 @@ let _ = class extends base{
     }
 
     async verifyEscada() {
-       // Ecdsa.publicKey.fr
-       // this.verification =  Ecdsa.verify(this.msg, this.sig, this.publicKey);
+       //
+    
+       var publicKeyRemote = PublicKey.fromPem(this.publicKey);
+       console.log("Public Key Received Successul!!!");
+       console.log("Public Key Remote : ", publicKeyRemote.toPem());
+       console.log("EC Parameters : ", privateKey.toPem());
+       let publicKey = privateKeyProver.publicKey(); //.PublicKey();
+       console.log("Public Key Server : ", publicKey.toPem());
+       let msg = this.msg;
+       console.log("Message Received : ", msg);
+       //let sig = Signature.fromDem(this.sig);
+       let signatureRemote = Signature.fromBase64(this.sig);
+       //console.log("Digital Signature Received : ", signatureRemote);
+       this.verification =  Ecdsa.verify(msg, signatureRemote, publicKeyRemote);
+        
         
     }
     // Set the first name

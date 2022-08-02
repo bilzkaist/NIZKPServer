@@ -31,12 +31,15 @@ _.verify = async (req, res, next) => {
     nizkp.setMsg(decodeURI(req.params.msg));
     nizkp.verifyEscada();
 
-    console.log(nizkp.verification)
+    console.log("Starting Verification Request ......");
+    let verificationStatus = nizkp.verification;
+    console.log(verificationStatus)
+    
 
 
     console.log('Time:', Date.now())
     let code = 200;
-    if (code) {
+    if (verificationStatus) {
         res.json({
             'ping' : 'successful',
             'status' : code,
